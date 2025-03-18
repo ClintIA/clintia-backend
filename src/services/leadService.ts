@@ -1,4 +1,3 @@
-import {IsNull, Like} from 'typeorm';
 import { leadRepository } from '../repositories/leadRepository';
 import { tenantExamsRepository } from '../repositories/tenantExamsRepository';
 import { doctorRepository } from '../repositories/doctorRepository';
@@ -8,39 +7,56 @@ import { UpdateLeadDTO } from '../types/dto/lead/UpdateLeadDTO';
 import { DeleteLeadDTO } from '../types/dto/lead/DeleteLeadDTO';
 import { ListLeadsDTO } from '../types/dto/lead/ListLeadsDTO';
 
+
 export const listLeads = async (filters?: ListLeadsDTO) => {
-    const whereCondition: any = {};
-
-    whereCondition.delete_at = IsNull();
-
+    let queryBuilder = leadRepository
+        .createQueryBuilder("lead")
+        .leftJoinAndSelect("lead.exam", "exam")
+        .leftJoinAndSelect("lead.scheduledDoctor", "scheduledDoctor")
+        .leftJoinAndSelect("lead.tenant", "tenant")
+        .where("lead.delete_at IS NULL")
     if (filters?.tenantId) {
-        whereCondition.tenant = { id: filters.tenantId };
+        queryBuilder = queryBuilder.andWhere("tenant.id = :tenantId", { tenantId: filters.tenantId })
     }
     if (filters?.name) {
-        whereCondition.name = Like(`%${filters.name}%`);
+        queryBuilder = queryBuilder.andWhere("lead.name LIKE :name", { name: `%${filters.name}%` })
     }
     if (filters?.phoneNumber) {
-        whereCondition.phoneNumber = filters.phoneNumber;
+        queryBuilder = queryBuilder.andWhere("lead.phoneNumber = :phoneNumber", { phoneNumber: filters.phoneNumber })
     }
     if (filters?.scheduled !== undefined) {
-        whereCondition.scheduled = filters.scheduled;
+        queryBuilder = queryBuilder.andWhere("lead.scheduled = :scheduled", { scheduled: filters.scheduled })
     }
     if (filters?.doctorId) {
-        whereCondition.scheduledDoctor = { id: filters.doctorId };
+        queryBuilder = queryBuilder.andWhere("scheduledDoctor.id = :doctorId", { doctorId: filters.doctorId })
     }
     if (filters?.examId) {
-        whereCondition.exam = { id: filters.examId };
+        queryBuilder = queryBuilder.andWhere("exam.id = :examId", { examId: filters.examId })
+    }
+    if (filters?.callDate) {
+        queryBuilder = queryBuilder.andWhere("lead.callDate = :callDate", { callDate: filters.callDate })
+    }
+    if (filters?.day) {
+        queryBuilder = queryBuilder.andWhere("EXTRACT(DAY FROM lead.callDate) = :day", { day: filters.day })
+    }
+    if (filters?.month) {
+        queryBuilder = queryBuilder.andWhere("EXTRACT(MONTH FROM lead.callDate) = :month", { month: filters.month })
+    if (filters?.year) {
+        queryBuilder = queryBuilder.andWhere("EXTRACT(YEAR FROM lead.callDate) = :year", { year: filters.year })
+    }
+    }
+    if (filters?.take) {
+        queryBuilder = queryBuilder.take(filters.take)
+    }
+    if (filters?.skip) {
+        queryBuilder = queryBuilder.skip(filters.skip)
     }
 
-    const [leads, total] = await leadRepository.findAndCount({
-        where: whereCondition,
-        take: filters?.take,
-        skip: filters?.skip,
-        relations: ['exam', 'scheduledDoctor', 'tenant'],
-        order: { callDate: 'DESC' },
-    });
-    return { leads, total };
-};
+
+    queryBuilder = queryBuilder.orderBy("lead.callDate", "DESC")
+    const [leads, total] = await queryBuilder.getManyAndCount()
+    return { leads, total }
+}
 
 export const createLead = async (leadData: CreateLeadDTO, tenantId: number) => {
     let exam;
