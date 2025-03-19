@@ -7,4 +7,8 @@ export interface ListLeadsDTO {
     examId?: number;
     take?: number;
     skip?: number;
+    day?: number;
+    month?: number;
+    year?: number;
+    callDate?: Date;
 }

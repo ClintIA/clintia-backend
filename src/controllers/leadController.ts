@@ -15,7 +15,18 @@ export const listLeadsController = async (req: Request, res: Response) => {
     */
     try {
         const tenantId = parseValidInt(req.headers['x-tenant-id'] as string);
-        const { name, phoneNumber, scheduled, doctorId, examId, take, skip } = req.query;
+        const {
+            name,
+            callDate,
+            phoneNumber,
+            scheduled,
+            doctorId,
+            examId,
+            take,
+            year,
+            month,
+            day,
+            skip } = req.query;
 
         const filters: ListLeadsDTO = {
             tenantId: tenantId || undefined,
@@ -25,7 +36,11 @@ export const listLeadsController = async (req: Request, res: Response) => {
             doctorId: doctorId ? parseInt(doctorId as string, 10) : undefined,
             examId: examId ? parseInt(examId as string, 10) : undefined,
             take: parseInt(take as string, 10) || 1000,
-            skip: parseInt(skip as string, 10) || 0
+            skip: parseInt(skip as string, 10) || 0,
+            callDate: callDate ? new Date(callDate as string) : undefined,
+            year: year ? parseInt(year as string) : undefined,
+            day: day ? parseInt(day as string) : undefined,
+            month: month ? parseInt(month as string) : undefined
         };
 
         const leadsResult = await listLeads(filters);

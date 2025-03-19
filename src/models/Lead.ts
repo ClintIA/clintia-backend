@@ -28,7 +28,7 @@ export class Lead {
     @JoinTable()
     exam?: TenantExams;
 
-    @CreateDateColumn({ nullable: true })
+    @CreateDateColumn({ type: "timestamp" , nullable: true })
     callDate!: Date;
 
     @Column({ nullable: true })
@@ -54,7 +54,6 @@ export class Lead {
 
     @ManyToOne(() => Tenant, tenant => tenant.patients, { nullable: false })
     tenant!: Tenant;
-
     @DeleteDateColumn()
     delete_at?: Date;
 }
