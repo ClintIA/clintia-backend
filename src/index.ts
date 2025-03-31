@@ -20,7 +20,7 @@ const startServer = async () => {
         await connectDatabase();
         console.log('Database Connected');
 
-      // await initializeWhatsApp();
+       await initializeWhatsApp();
        console.log('WhatsApp Client Initialized');
 
         app.listen(PORT, () => {
