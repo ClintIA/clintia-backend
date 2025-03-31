@@ -406,8 +406,7 @@ export const calculateMarketingMetrics = async (tenantId: number, month: string)
     let totalInProgress: number = 0;
     let totalSchedulled: number = 0;
     let totalRevenue: number = 0;
-    console.log(metricsData)
-    // Processa dados de Exames
+
     examsData.forEach((exam: PatientExams) => {
         if (exam.status === 'Completed') {
             totalCompleted++;
@@ -416,7 +415,6 @@ export const calculateMarketingMetrics = async (tenantId: number, month: string)
         if (exam.status === 'Scheduled') totalSchedulled++;
         if (exam.status === "InProgress") totalInProgress++;
     });
-    console.log(totalRevenue)
     let totalAppointments = totalCompleted + totalInProgress + totalSchedulled;
 
     // Cálculos

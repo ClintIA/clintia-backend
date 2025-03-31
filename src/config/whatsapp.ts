@@ -8,9 +8,6 @@ const client = new Client({ puppeteer: {
 
 
 client.on('qr', (qr) => {
-    console.log('QR CODE')
-    console.log('---------------------')
-    console.log(qr)
     qrcode.generate(qr, { small: true });
 });
 
