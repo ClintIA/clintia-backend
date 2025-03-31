@@ -1,5 +1,5 @@
-import { getWhatsAppClient } from "../config/whatsapp";
-import { getTemplateMessage } from "../utils/messageTemplates";
+import {getWhatsAppClient} from "../config/whatsapp";
+import {getTemplateMessage} from "../utils/messageTemplates";
 
 export const sendWhatsAppMessage = async (to: string, templateKey: string, params: any) => {
     const client = getWhatsAppClient();

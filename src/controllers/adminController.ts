@@ -1,11 +1,12 @@
 import {Request, Response} from 'express';
 import {customErrorResponse, errorResponse, successResponse} from '../utils/httpResponses';
 import {
-    getAdminByCPF,
-    getAdminsByName,
-    updateAdmin,
     deleteAdmin,
-    getAdmins, getAdminById
+    getAdminByCPF,
+    getAdminById,
+    getAdmins,
+    getAdminsByName,
+    updateAdmin
 } from "../services/adminService";
 import {adminRepository} from "../repositories/adminRepository";
 

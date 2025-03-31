@@ -1,11 +1,11 @@
-import { leadRepository } from '../repositories/leadRepository';
-import { tenantExamsRepository } from '../repositories/tenantExamsRepository';
-import { doctorRepository } from '../repositories/doctorRepository';
-import { tenantRepository } from '../repositories/tenantRepository';
-import { CreateLeadDTO } from '../types/dto/lead/CreateLeadDTO';
-import { UpdateLeadDTO } from '../types/dto/lead/UpdateLeadDTO';
-import { DeleteLeadDTO } from '../types/dto/lead/DeleteLeadDTO';
-import { ListLeadsDTO } from '../types/dto/lead/ListLeadsDTO';
+import {leadRepository} from '../repositories/leadRepository';
+import {tenantExamsRepository} from '../repositories/tenantExamsRepository';
+import {doctorRepository} from '../repositories/doctorRepository';
+import {tenantRepository} from '../repositories/tenantRepository';
+import {CreateLeadDTO} from '../types/dto/lead/CreateLeadDTO';
+import {UpdateLeadDTO} from '../types/dto/lead/UpdateLeadDTO';
+import {DeleteLeadDTO} from '../types/dto/lead/DeleteLeadDTO';
+import {ListLeadsDTO} from '../types/dto/lead/ListLeadsDTO';
 
 
 export const listLeads = async (filters?: ListLeadsDTO) => {

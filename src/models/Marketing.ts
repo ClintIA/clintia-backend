@@ -1,14 +1,6 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    Index,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn
-} from "typeorm";
-import { Admin } from "./Admin";
-import { Tenant } from "./Tenant";
+import {Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {Admin} from "./Admin";
+import {Tenant} from "./Tenant";
 
 @Entity()
 @Index(['id', 'canal', 'tenant'])

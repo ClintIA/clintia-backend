@@ -1,4 +1,4 @@
-import { Client, LocalAuth } from 'whatsapp-web.js';
+import {Client, LocalAuth} from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 
 const client = new Client({ puppeteer: {
@@ -8,9 +8,6 @@ const client = new Client({ puppeteer: {
 
 
 client.on('qr', (qr) => {
-    console.log('QR CODE')
-    console.log('---------------------')
-    console.log(qr)
     qrcode.generate(qr, { small: true });
 });
 

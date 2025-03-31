@@ -1,16 +1,16 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
     Column,
-    ManyToOne,
     CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
     Index,
-    BeforeUpdate,
-    UpdateDateColumn, DeleteDateColumn
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
 } from 'typeorm';
-import { Patient } from './Patient';
-import { Admin } from './Admin';
-import { TenantExams } from './TenantExams';
+import {Patient} from './Patient';
+import {Admin} from './Admin';
+import {TenantExams} from './TenantExams';
 import {Doctor} from "./Doctor";
 import {Tenant} from "./Tenant";
 

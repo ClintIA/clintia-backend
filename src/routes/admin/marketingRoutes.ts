@@ -1,19 +1,19 @@
 import {Router} from "express";
 import {
     countPatientByMonthController,
-    createCanalController,
-    examPriceController,
     countPatientExamWithFilterController,
-    listCanalController,
-    updateCanalController,
+    createCanalController,
     deleteCanalController,
+    examPriceController,
     getBudgetByTenantController,
-    updateBudgetByTenantController,
+    getMarketingMetricsController,
+    listCanalController,
     listChannelByMonthController,
     totalInvoiceByMonthController,
     totalInvoiceDoctorByMonthController,
-    upsertMarketingDataController,
-    getMarketingMetricsController
+    updateBudgetByTenantController,
+    updateCanalController,
+    upsertMarketingDataController
 } from "../../controllers/marketingController";
 import {tenantMiddleware} from "../../middlewares/tenantMiddleware";
 import {authMiddleware} from "../../middlewares/authMiddleware";
@@ -35,6 +35,6 @@ router.put('/marketing/canal', tenantMiddleware, updateCanalController)
 router.delete('/marketing/canal/:id', tenantMiddleware, deleteCanalController)
 
 router.post('/marketing/data', authMiddleware, isAdminMiddleware, tenantMiddleware, upsertMarketingDataController);
-router.get('/marketing/metrics', authMiddleware, isAdminMiddleware, tenantMiddleware, getMarketingMetricsController);
+router.get('/marketing/metrics', getMarketingMetricsController);
 
 export default router;

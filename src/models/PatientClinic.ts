@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Index } from 'typeorm';
-import { Patient } from './Patient';
-import { Tenant } from './Tenant';
+import {Entity, Index, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Patient} from './Patient';
+import {Tenant} from './Tenant';
 
 @Entity()
 @Index(['id'])

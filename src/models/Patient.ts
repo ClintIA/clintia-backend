@@ -1,13 +1,14 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
     Column,
     CreateDateColumn,
-    ManyToMany,
+    DeleteDateColumn,
+    Entity,
     Index,
-    JoinTable, DeleteDateColumn
+    JoinTable,
+    ManyToMany,
+    PrimaryGeneratedColumn
 } from 'typeorm';
-import { Tenant } from './Tenant';
+import {Tenant} from './Tenant';
 import {ProfileRole} from "../types/enums/ProfileRole";
 
 @Entity()

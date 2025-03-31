@@ -4,11 +4,14 @@ import {errorResponse, successResponse} from "../utils/httpResponses";
 import {RegisterDoctorDTO} from "../types/dto/doctor/registerDoctorDTO";
 import {addDoctorToExam} from "../services/tenantExamService";
 import {
-    registerDoctor,
-    updateDoctorService,
+    deleteDoctorFromTenant,
+    findDoctorsById,
     getDoctors,
-    getDoctorsByExamName, findDoctorsById, deleteDoctorFromTenant
+    getDoctorsByExamName,
+    registerDoctor,
+    updateDoctorService
 } from "../services/doctorService";
+
 interface PaginationQuery {
     page?: string;
     take?: string;

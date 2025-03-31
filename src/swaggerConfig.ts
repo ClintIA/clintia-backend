@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import {resolve} from 'path';
 import * as dotenv from "dotenv";
 import swaggerAutogen from "swagger-autogen";
 

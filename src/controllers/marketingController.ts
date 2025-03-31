@@ -2,21 +2,22 @@ import {Request, Response} from "express";
 import {errorResponse, successResponse} from "../utils/httpResponses";
 import {parseValidInt} from "../utils/parseValidInt";
 import {
-    countPatientByMonthService,
-    examPricesService,
+    calculateMarketingMetrics,
     countInvoicingService,
-    listCanalService,
+    countPatientByMonthService,
     createCanalService,
-    updateCanalService,
     deleteCanalService,
+    examPricesService,
     getBudgetByTenantService,
-    updateBudgetByTenantService,
+    listCanalService,
     listChannelByMonthService,
-    totalInvoicePerExamByMonthService,
     totalExamPerDoctorByMonthService,
-    upsertMarketingDataService, calculateMarketingMetrics,
+    totalInvoicePerExamByMonthService,
+    updateBudgetByTenantService,
+    updateCanalService,
+    upsertMarketingDataService,
 } from "../services/marketingService";
-import { MarketingFilters} from "../types/dto/marketing/marketingFilters";
+import {MarketingFilters} from "../types/dto/marketing/marketingFilters";
 import {MarketingDTO} from "../types/dto/marketing/marketingDTO";
 
 

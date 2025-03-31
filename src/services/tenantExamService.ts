@@ -1,6 +1,6 @@
-import { tenantExamsRepository } from '../repositories/tenantExamsRepository';
-import { CreateExamDTO } from '../types/dto/tenantExam/createExamDTO';
-import { UpdateExamDTO } from '../types/dto/tenantExam/updateExamDTO';
+import {tenantExamsRepository} from '../repositories/tenantExamsRepository';
+import {CreateExamDTO} from '../types/dto/tenantExam/createExamDTO';
+import {UpdateExamDTO} from '../types/dto/tenantExam/updateExamDTO';
 import {Doctor} from "../models/Doctor";
 import {findDoctorsById} from "./doctorService";
 

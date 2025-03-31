@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index } from 'typeorm';
-import { Tenant } from './Tenant';
+import {Column, Entity, Index, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Tenant} from './Tenant';
 
 @Entity()
 @Index(['id'])

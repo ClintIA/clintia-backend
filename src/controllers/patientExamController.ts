@@ -1,19 +1,20 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import {
-    listPatientExams,
     createPatientExam,
-    updatePatientExam,
+    createPatientExamWithPatient,
     deletePatientExam,
+    listPatientExams,
     updateExamAttendance,
-    createPatientExamWithPatient
+    updatePatientExam
 } from '../services/patientExamService';
-import { successResponse, errorResponse } from '../utils/httpResponses';
-import { parseValidInt } from '../utils/parseValidInt';
-import { sendExamScheduled } from './notificationController';
+import {errorResponse, successResponse} from '../utils/httpResponses';
+import {parseValidInt} from '../utils/parseValidInt';
+import {sendExamScheduled} from './notificationController';
 import {CreatePatientExamDTO, CreatePatientExamWithPatientDTO} from '../types/dto/patientExam/createPatientExamDTO';
-import { ListPatientExamsDTO } from '../types/dto/patientExam/listPatientExamsDTO';
-import { UpdatePatientExamDTO } from '../types/dto/patientExam/updatePatientExamDTO';
-import { formatDateTimeToBrazilian } from '../utils/converTime';
+import {ListPatientExamsDTO} from '../types/dto/patientExam/listPatientExamsDTO';
+import {UpdatePatientExamDTO} from '../types/dto/patientExam/updatePatientExamDTO';
+import {UpdateExamAttendanceDTO} from '../types/dto/patientExam/updateExamAttendanceDTO';
+import {getExam} from "../services/tenantExamService";
 
 export const listPatientExamsController = async (req: Request, res: Response) => {
     /*
@@ -199,11 +200,6 @@ export const deletePatientExamController = async (req: Request, res: Response) =
         return errorResponse(res, error);
     }
 };
-
-import { UpdateExamAttendanceDTO } from '../types/dto/patientExam/updateExamAttendanceDTO';
-import {PatientFiltersDTO} from "../types/dto/patient/patientFiltersDTO";
-import {getExam} from "../services/tenantExamService";
-import {createLeadController} from "./leadController";
 
 export const updateExamAttendanceController = async (req: Request, res: Response) => {
     /*

@@ -1,5 +1,5 @@
 import {patientExamsRepository} from "../repositories/patientExamsRepository";
-import { MarketingFilters} from "../types/dto/marketing/marketingFilters";
+import {MarketingFilters} from "../types/dto/marketing/marketingFilters";
 import {patientRepository} from "../repositories/patientRepository";
 import {tenantExamsRepository} from "../repositories/tenantExamsRepository";
 import {marketingRepository} from "../repositories/marketingRepository";
@@ -9,7 +9,8 @@ import {tenantRepository} from "../repositories/tenantRepository";
 import {getExams} from "./tenantExamService";
 import {getDoctors} from "./doctorService";
 import {listPatientExams} from "./patientExamService";
-import {Between, LessThan, Like, MoreThan} from "typeorm";
+import {Marketing} from "../models/Marketing";
+import {PatientExams} from "../models/PatientExams";
 
 interface IChart {
     name: string
@@ -18,6 +19,24 @@ interface IChart {
     totalDoctor?: number
     profit?: number
     percent?: number
+}
+interface MarketingTotals {
+    byChannel: {
+        [channel: string]: {
+            clicks: number;
+            cost: number;
+            leads: number;
+        }
+    };
+    total: {
+        clicks: number;
+        cost: number;
+        leads: number;
+    }
+}
+
+interface TenantMarketingStats {
+    tenant: MarketingTotals;
 }
 
 export const listCanalService = async (tenantID?: number) => {
@@ -222,7 +241,32 @@ export const totalExamPerDoctorByMonthService = async (filters: MarketingFilters
     return { quantityExamDoctor: quantityExamDoctor, totalInvoiceDoctor: totalInvoiceDoctors }
 }
 
+async function getMarketingTotalsByTenantAndChannel(tenantId: number, month: number) {
+    return await marketingRepository.find({
+        where: {
+            tenant: { id: tenantId }
+        },
+        relations: ['tenant']
+    })
 
+}
+async function getExamsByMonth(month: number, tenantId: number) {
+    const queryBuilder = patientExamsRepository
+        .createQueryBuilder('patientExams')
+        .leftJoinAndSelect('patientExams.patient', 'patient')
+        .leftJoinAndSelect('patientExams.exam', 'exam')
+        .leftJoinAndSelect('patientExams.doctor', 'doctor')
+        .leftJoinAndSelect('patientExams.tenant', 'tenant')
+        .where('EXTRACT(MONTH FROM patientExams.createdAt) = :month', { month })
+        .andWhere('patientExams.delete_at IS NULL');
+
+    // Adiciona filtro por tenant se fornecido
+    if (tenantId) {
+        queryBuilder.andWhere('tenant.id = :tenantId', { tenantId });
+    }
+
+    return await queryBuilder.getMany();
+}
 
 export const totalInvoicePerExamByMonthService = async (filters: MarketingFilters) => {
     const examList = await getExams(filters.tenantId)
@@ -308,47 +352,70 @@ export const upsertMarketingDataService = async (newData: MarketingDTO, tenantId
     return { message: 'Dados de marketing atualizados com sucesso' };
 };
 
+function calculateMarketingTotals(marketingData: Marketing[]): TenantMarketingStats {
+    const result: TenantMarketingStats = {} as TenantMarketingStats;
+
+    // Processa cada registro de marketing
+    marketingData.forEach(record => {
+
+        // Inicializa o objeto do tenant se não existir
+        if (!result['tenant']) {
+            result['tenant'] = {
+                byChannel: {},
+                total: {
+                    clicks: 0,
+                    cost: 0,
+                    leads: 0
+                }
+            };
+        }
+
+        // Inicializa o canal se não existir
+        if (!result['tenant'].byChannel[record.canal]) {
+            result['tenant'].byChannel[record.canal] = {
+                clicks: 0,
+                cost: 0,
+                leads: 0
+            };
+        }
+
+        // Adiciona os valores ao canal específico
+        result['tenant'].byChannel[record.canal].clicks += record.clicks || 0;
+        result['tenant'].byChannel[record.canal].cost += Number(record.cost) || 0;
+        result['tenant'].byChannel[record.canal].leads += record.leads || 0;
+
+        // Adiciona os valores ao total do tenant
+        result['tenant'].total.clicks += record.clicks || 0;
+        result['tenant'].total.cost += Number(record.cost) || 0;
+        result['tenant'].total.leads += record.leads || 0;
+    });
+
+    return result;
+}
 export const calculateMarketingMetrics = async (tenantId: number, month: string) => {
-    const dateStart = new Date(`${month}-01`);
-    const dateEnd = new Date(`${month}-31`);
-    const marketingData = await marketingRepository.find({
-        where: {
-            tenant: { id: tenantId },
-            created_at: Between(dateStart, dateEnd),
-            updatedBy: Between(dateStart, dateEnd),
-        },
-    });
-    const examsData = await patientExamsRepository.find({
-        where: {
-            tenant: { id: tenantId },
-            examDate: MoreThan(dateStart),
-        },
-        relations: ['patient', 'exam'],
-    });
+
+    const marketingData = await getMarketingTotalsByTenantAndChannel(tenantId, Number(month))
+    const examsData = await getExamsByMonth(Number(month),tenantId)
+    const metricsData = calculateMarketingTotals(marketingData)
 
     // Variáveis para cálculos
-    let totalLeads = 0;
-    let totalClicks = 0;
-    let totalCost = 0;
-    let totalAppointments = 0;
-    let totalCompleted = 0;
-    let totalRevenue = 0;
+    let totalLeads: number = metricsData.tenant.total.leads
+    let totalClicks: number =  metricsData.tenant.total.clicks
+    let totalCost: number =  metricsData.tenant.total.cost
+    let totalCompleted: number = 0;
+    let totalInProgress: number = 0;
+    let totalSchedulled: number = 0;
+    let totalRevenue: number = 0;
 
-    // Processa dados da tabela Marketing
-    marketingData.forEach((record) => {
-        totalClicks += record.clicks ?? 0;
-        totalLeads += record.leads ?? 0;
-        totalCost += record.cost ?? 0;
-    });
-
-    // Processa dados de Exames
-    examsData.forEach((exam) => {
+    examsData.forEach((exam: PatientExams) => {
         if (exam.status === 'Completed') {
             totalCompleted++;
-            totalRevenue += exam.exam.price ?? 0;
+            if(exam?.exam?.price) totalRevenue += Number(exam.exam.price);
         }
-        if (exam.status === 'Scheduled') totalAppointments++;
+        if (exam.status === 'Scheduled') totalSchedulled++;
+        if (exam.status === "InProgress") totalInProgress++;
     });
+    let totalAppointments = totalCompleted + totalInProgress + totalSchedulled;
 
     // Cálculos
     const CPL = totalCost / totalLeads || 0; // Custo por Lead
@@ -360,7 +427,7 @@ export const calculateMarketingMetrics = async (tenantId: number, month: string)
 
     // Taxas
     const appointmentRate = totalAppointments / totalLeads || 0; // Taxa de Aproveitamento
-    const noShowRate = 1 - (totalCompleted / totalAppointments || 0); // Taxa de Absenteísmo
+    const noShowRate = 1 - ((totalCompleted / totalAppointments) || 0); // Taxa de Absenteísmo
     const conversionRate = totalCompleted / totalLeads || 0; // Taxa de Conversão Final
     const roasPercentage = (ROAS - 1) * 100; // Taxa de ROAS
 

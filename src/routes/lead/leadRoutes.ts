@@ -1,13 +1,13 @@
-import { Router } from 'express';
-import { authMiddleware } from '../../middlewares/authMiddleware';
-import { tenantMiddleware } from '../../middlewares/tenantMiddleware';
-import { isAdminMiddleware } from '../../middlewares/isAdminMiddleware';
+import {Router} from 'express';
+import {authMiddleware} from '../../middlewares/authMiddleware';
+import {tenantMiddleware} from '../../middlewares/tenantMiddleware';
+import {isAdminMiddleware} from '../../middlewares/isAdminMiddleware';
 
 import {
     createLeadController,
+    deleteLeadController,
     listLeadsController,
-    updateLeadController,
-    deleteLeadController
+    updateLeadController
 } from '../../controllers/leadController';
 
 const router = Router();

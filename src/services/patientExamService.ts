@@ -1,20 +1,18 @@
 import {IsNull, Like} from 'typeorm';
-import { patientExamsRepository } from '../repositories/patientExamsRepository';
-import { tenantExamsRepository } from '../repositories/tenantExamsRepository';
-import { handleFilterDate } from '../utils/handleDate';
-import { adminRepository } from '../repositories/adminRepository';
-import { patientRepository } from '../repositories/patientRepository';
+import {patientExamsRepository} from '../repositories/patientExamsRepository';
+import {tenantExamsRepository} from '../repositories/tenantExamsRepository';
+import {handleFilterDate} from '../utils/handleDate';
+import {adminRepository} from '../repositories/adminRepository';
+import {patientRepository} from '../repositories/patientRepository';
 import {CreatePatientExamDTO, CreatePatientExamWithPatientDTO} from '../types/dto/patientExam/createPatientExamDTO';
-import { DeletePatientExamDTO } from '../types/dto/patientExam/deletePatientExamDTO';
-import { ListPatientExamsDTO } from '../types/dto/patientExam/listPatientExamsDTO';
-import { UpdatePatientExamDTO } from '../types/dto/patientExam/updatePatientExamDTO';
-import { UpdateExamAttendanceDTO } from '../types/dto/patientExam/updateExamAttendanceDTO';
+import {DeletePatientExamDTO} from '../types/dto/patientExam/deletePatientExamDTO';
+import {ListPatientExamsDTO} from '../types/dto/patientExam/listPatientExamsDTO';
+import {UpdatePatientExamDTO} from '../types/dto/patientExam/updatePatientExamDTO';
+import {UpdateExamAttendanceDTO} from '../types/dto/patientExam/updateExamAttendanceDTO';
 import {registerPatient} from "./patientService";
 import {generatePassword} from "../utils/passwordGenerator";
 import {doctorRepository} from "../repositories/doctorRepository";
-import { Doctor } from '../models/Doctor';
-import { PatientExams } from '../models/PatientExams';
-import {leadRepository} from "../repositories/leadRepository";
+import {PatientExams} from '../models/PatientExams';
 
 export const listPatientExams = async (filters?: ListPatientExamsDTO) => {
     const whereCondition: any = {};

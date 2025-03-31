@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import {findPatientByCPF, findPatientByPhone} from "../../controllers/patientController";
 import {authMiddleware} from "../../middlewares/authMiddleware";
 import {patientMiddleware} from "../../middlewares/patientMiddleware";

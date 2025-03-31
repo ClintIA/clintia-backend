@@ -1,11 +1,11 @@
-import { findTenantById } from '../services/tenantService';
-import { sendWhatsAppMessage } from '../services/whatsappService';
-import { SendExamReadyNotificationDTO } from '../types/dto/notification/sendExamReadyNotificationDTO';
-import { SendExamScheduledDTO } from '../types/dto/notification/sendExamScheduledDTO';
-import { SendLoginInfoDTO } from '../types/dto/notification/sendLoginInfoDTO';
-import { WhatsAppMessageType } from '../types/enums/whatsappMessages';
-import { formatPhoneNumber } from '../utils/formatPhoneNumber';
-import { generateWhatsAppLink } from '../utils/generateWhatsAppLink';
+import {findTenantById} from '../services/tenantService';
+import {sendWhatsAppMessage} from '../services/whatsappService';
+import {SendExamReadyNotificationDTO} from '../types/dto/notification/sendExamReadyNotificationDTO';
+import {SendExamScheduledDTO} from '../types/dto/notification/sendExamScheduledDTO';
+import {SendLoginInfoDTO} from '../types/dto/notification/sendLoginInfoDTO';
+import {WhatsAppMessageType} from '../types/enums/whatsappMessages';
+import {formatPhoneNumber} from '../utils/formatPhoneNumber';
+import {generateWhatsAppLink} from '../utils/generateWhatsAppLink';
 import dotenv from 'dotenv';
 
 dotenv.config();

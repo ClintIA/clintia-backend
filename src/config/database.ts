@@ -1,11 +1,11 @@
-import { DataSource } from 'typeorm';
-import { Admin } from '../models/Admin';
-import { Patient } from '../models/Patient';
-import { Tenant } from '../models/Tenant';
+import {DataSource} from 'typeorm';
+import {Admin} from '../models/Admin';
+import {Patient} from '../models/Patient';
+import {Tenant} from '../models/Tenant';
 import dotenv from 'dotenv';
-import { Product } from '../models/Product';
-import { TenantExams } from '../models/TenantExams';
-import { PatientExams } from '../models/PatientExams';
+import {Product} from '../models/Product';
+import {TenantExams} from '../models/TenantExams';
+import {PatientExams} from '../models/PatientExams';
 import {NoticeCard} from "../models/NoticeCard";
 import {PatientClinic} from "../models/PatientClinic";
 import {Doctor} from "../models/Doctor";

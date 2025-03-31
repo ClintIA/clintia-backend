@@ -1,9 +1,11 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import {tenantMiddleware} from "../../middlewares/tenantMiddleware";
 import {authMiddleware} from "../../middlewares/authMiddleware";
 import {isAdminMiddleware} from "../../middlewares/isAdminMiddleware";
 import {
-    deleteDoctorController, getDoctorsByExamNameController, getDoctorsListController,
+    deleteDoctorController,
+    getDoctorsByExamNameController,
+    getDoctorsListController,
     registerDoctorController,
     updateDoctorController
 } from "../../controllers/doctorController";
