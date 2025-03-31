@@ -35,6 +35,6 @@ router.put('/marketing/canal', tenantMiddleware, updateCanalController)
 router.delete('/marketing/canal/:id', tenantMiddleware, deleteCanalController)
 
 router.post('/marketing/data', authMiddleware, isAdminMiddleware, tenantMiddleware, upsertMarketingDataController);
-router.get('/marketing/metrics', authMiddleware, isAdminMiddleware, tenantMiddleware, getMarketingMetricsController);
+router.get('/marketing/metrics', getMarketingMetricsController);
 
 export default router;
