@@ -62,7 +62,7 @@ export const registerDoctorController = async (req: Request, res: Response) => {
         //     tenantId: tenantId
         // });
 
-        return successResponse(res, result, 'Médico registrado com sucesso', 201);
+        return successResponse(res, result.message, 'Médico registrado com sucesso', 201);
     } catch (error) {
         return errorResponse(res, error);
     }

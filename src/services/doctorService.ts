@@ -11,7 +11,6 @@ import {patientExamsRepository} from "../repositories/patientExamsRepository";
 export const getDoctors = async ({ tenantId, take = 100, skip = 0 }: PaginationQuery) => {
     const [doctors, total] = await doctorRepository.findAndCount({
         select: { id: true, fullName: true, cpf: true, role:true, CRM: true,occupation: true, phone: true, created_at: true },
-        relations: ['exams'],
         take,
         skip,
         where: { tenants: { id: tenantId } }
