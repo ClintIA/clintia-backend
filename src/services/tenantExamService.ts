@@ -1,18 +1,17 @@
 import { tenantExamsRepository } from '../repositories/tenantExamsRepository';
 import { CreateExamDTO } from '../types/dto/tenantExam/createExamDTO';
-import { ListExamsDTO } from '../types/dto/tenantExam/listExamsDTO';
 import { UpdateExamDTO } from '../types/dto/tenantExam/updateExamDTO';
 import {Doctor} from "../models/Doctor";
 import {findDoctorsById} from "./doctorService";
-import {MarketingFilters} from "../types/dto/marketing/marketingFilters";
 
 export const createExam = async (examData: CreateExamDTO) => {
     const doctors: Doctor[] = [];
-
-    for (const doctorId of examData.doctors) {
-        const doctor =  await findDoctorsById(parseInt(doctorId));
-        if(doctor) {
-            doctors.push(doctor);
+    if(examData.doctors) {
+        for (const doctorId of examData.doctors) {
+            const doctor = await findDoctorsById(parseInt(doctorId));
+            if (doctor) {
+                doctors.push(doctor);
+            }
         }
     }
 
@@ -22,7 +21,7 @@ export const createExam = async (examData: CreateExamDTO) => {
         doctorPrice: examData.doctorPrice,
         tenant: { id: examData.tenantId },
         exam_type: examData.exam_type,
-        doctors: doctors
+        doctors: doctors || []
     });
     return { message: 'Exame criado com sucesso' };
 };

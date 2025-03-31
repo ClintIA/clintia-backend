@@ -35,7 +35,7 @@ export class TenantExams {
     @ManyToOne(() => Tenant, tenant => tenant.exams)
     tenant!: Tenant;    
 
-    @ManyToMany(() => Doctor, doctor => doctor.exams)
+    @ManyToMany(() => Doctor, doctor => doctor.exams, { nullable: true })
     doctors!: Doctor[];
 
     @DeleteDateColumn()
