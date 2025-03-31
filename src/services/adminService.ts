@@ -8,7 +8,7 @@ import {LoginAdminDTO} from '../types/dto/auth/loginAdminDTO';
 import {RegisterAdminDTO} from '../types/dto/auth/registerAdminDTO';
 import {tenantRepository} from "../repositories/tenantRepository";
 import {findDoctorsByEmail} from "./doctorService";
-import { Doctor } from '../models/Doctor';
+import {Doctor} from '../models/Doctor';
 import {doctorRepository} from "../repositories/doctorRepository";
 import {patientExamsRepository} from "../repositories/patientExamsRepository";
 

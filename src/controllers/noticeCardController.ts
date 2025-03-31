@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { successResponse, errorResponse, customErrorResponse } from '../utils/httpResponses';
-import { createCardService, deleteCardService, listNoticeCardService } from "../services/noticeCardService";
-import { CreateNoticeCardDTO } from '../types/dto/noticeCard/createNoticeCardDTO';
-import { DeleteNoticeCardDTO } from '../types/dto/noticeCard/deleteNoticeCardDTO';
-import { ListNoticeCardFiltersDTO } from '../types/dto/noticeCard/listNoticeCardFiltersDTO';
+import {Request, Response} from 'express';
+import {customErrorResponse, errorResponse, successResponse} from '../utils/httpResponses';
+import {createCardService, deleteCardService, listNoticeCardService} from "../services/noticeCardService";
+import {CreateNoticeCardDTO} from '../types/dto/noticeCard/createNoticeCardDTO';
+import {DeleteNoticeCardDTO} from '../types/dto/noticeCard/deleteNoticeCardDTO';
+import {ListNoticeCardFiltersDTO} from '../types/dto/noticeCard/listNoticeCardFiltersDTO';
 
 export const listNoticeCardController = async (req: Request, res: Response) => {
     /*

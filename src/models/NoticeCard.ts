@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Index } from 'typeorm';
+import {Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import {Admin} from "./Admin";
 import {Tenant} from "./Tenant";
 

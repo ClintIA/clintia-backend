@@ -1,13 +1,14 @@
-import { Router } from 'express';
-import { authMiddleware } from '../../middlewares/authMiddleware';
-import { tenantMiddleware } from '../../middlewares/tenantMiddleware';
-import { isAdminMiddleware } from '../../middlewares/isAdminMiddleware';
+import {Router} from 'express';
+import {authMiddleware} from '../../middlewares/authMiddleware';
+import {tenantMiddleware} from '../../middlewares/tenantMiddleware';
+import {isAdminMiddleware} from '../../middlewares/isAdminMiddleware';
 import {
     createPatientExamController,
-    listPatientExamsController,
-    updatePatientExamController,
+    createPatientExamNewPatientController,
     deletePatientExamController,
-    updateExamAttendanceController, createPatientExamNewPatientController
+    listPatientExamsController,
+    updateExamAttendanceController,
+    updatePatientExamController
 } from '../../controllers/patientExamController';
 
 const router = Router();

@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
-import { registerPatient, loginPatientByCpf } from '../services/patientService'; 
-import {registerAdmin, loginAdmin, selectTenantService} from '../services/adminService';
-import { successResponse, errorResponse } from '../utils/httpResponses';
+import {Request, Response} from 'express';
+import {registerPatient} from '../services/patientService';
+import {loginAdmin, registerAdmin, selectTenantService} from '../services/adminService';
+import {errorResponse, successResponse} from '../utils/httpResponses';
 import {generatePassword, generatePasswordByCpfAndName} from "../utils/passwordGenerator";
-import { sendLoginInfoToAdmin, sendLoginInfoToClient } from './notificationController';
-import { RegisterPatientDTO } from '../types/dto/auth/registerPatientDTO';
-import { LoginAdminDTO } from '../types/dto/auth/loginAdminDTO';
-import { RegisterAdminDTO } from '../types/dto/auth/registerAdminDTO';
+import {sendLoginInfoToAdmin} from './notificationController';
+import {RegisterPatientDTO} from '../types/dto/auth/registerPatientDTO';
+import {LoginAdminDTO} from '../types/dto/auth/loginAdminDTO';
+import {RegisterAdminDTO} from '../types/dto/auth/registerAdminDTO';
 
 export const registerAdminController = async (req: Request, res: Response) => {
     /*

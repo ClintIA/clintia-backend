@@ -1,8 +1,13 @@
-import { Router } from 'express';
-import { createExamController, getExamsController, updateExamController, deleteExamController } from '../../controllers/tenantExamController';
-import { authMiddleware } from '../../middlewares/authMiddleware';
-import { tenantMiddleware } from '../../middlewares/tenantMiddleware';
-import { isAdminMiddleware } from '../../middlewares/isAdminMiddleware';
+import {Router} from 'express';
+import {
+    createExamController,
+    deleteExamController,
+    getExamsController,
+    updateExamController
+} from '../../controllers/tenantExamController';
+import {authMiddleware} from '../../middlewares/authMiddleware';
+import {tenantMiddleware} from '../../middlewares/tenantMiddleware';
+import {isAdminMiddleware} from '../../middlewares/isAdminMiddleware';
 
 const router = Router();
 

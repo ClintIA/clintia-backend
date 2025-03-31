@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import {tenantRepository} from "../repositories/tenantRepository";
 import {RegisterDoctorDTO} from "../types/dto/doctor/registerDoctorDTO";
 import {PaginationQuery} from "../types/dto/doctor/paginationQuery";
-import {adminRepository} from "../repositories/adminRepository";
 import {patientExamsRepository} from "../repositories/patientExamsRepository";
 
 

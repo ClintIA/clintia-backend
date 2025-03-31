@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { errorResponse } from '../utils/httpResponses';
+import {NextFunction, Request, Response} from 'express';
+import {errorResponse} from '../utils/httpResponses';
 
 export const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if (req.user?.role == 'patient') {

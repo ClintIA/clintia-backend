@@ -1,16 +1,16 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
     Column,
-    ManyToOne,
     CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
     Index,
     JoinTable,
-    DeleteDateColumn
+    ManyToOne,
+    PrimaryGeneratedColumn
 } from 'typeorm';
-import { Tenant } from './Tenant';
-import { TenantExams } from './TenantExams';
-import { Doctor } from './Doctor';
+import {Tenant} from './Tenant';
+import {TenantExams} from './TenantExams';
+import {Doctor} from './Doctor';
 
 @Entity()
 @Index(['id'])

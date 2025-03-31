@@ -1,14 +1,14 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
     Column,
-    ManyToOne,
     CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
     Index,
     ManyToMany,
-    DeleteDateColumn
+    ManyToOne,
+    PrimaryGeneratedColumn
 } from 'typeorm';
-import { Tenant } from './Tenant';
+import {Tenant} from './Tenant';
 import {Doctor} from "./Doctor";
 
 @Entity()

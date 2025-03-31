@@ -1,5 +1,5 @@
 import {patientExamsRepository} from "../repositories/patientExamsRepository";
-import { MarketingFilters} from "../types/dto/marketing/marketingFilters";
+import {MarketingFilters} from "../types/dto/marketing/marketingFilters";
 import {patientRepository} from "../repositories/patientRepository";
 import {tenantExamsRepository} from "../repositories/tenantExamsRepository";
 import {marketingRepository} from "../repositories/marketingRepository";
@@ -9,7 +9,6 @@ import {tenantRepository} from "../repositories/tenantRepository";
 import {getExams} from "./tenantExamService";
 import {getDoctors} from "./doctorService";
 import {listPatientExams} from "./patientExamService";
-import {Between, LessThan, Like, MoreThan} from "typeorm";
 import {Marketing} from "../models/Marketing";
 import {PatientExams} from "../models/PatientExams";
 

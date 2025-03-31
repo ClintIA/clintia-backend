@@ -1,19 +1,19 @@
 import {Router} from "express";
 import {
     countPatientByMonthController,
-    createCanalController,
-    examPriceController,
     countPatientExamWithFilterController,
-    listCanalController,
-    updateCanalController,
+    createCanalController,
     deleteCanalController,
+    examPriceController,
     getBudgetByTenantController,
-    updateBudgetByTenantController,
+    getMarketingMetricsController,
+    listCanalController,
     listChannelByMonthController,
     totalInvoiceByMonthController,
     totalInvoiceDoctorByMonthController,
-    upsertMarketingDataController,
-    getMarketingMetricsController
+    updateBudgetByTenantController,
+    updateCanalController,
+    upsertMarketingDataController
 } from "../../controllers/marketingController";
 import {tenantMiddleware} from "../../middlewares/tenantMiddleware";
 import {authMiddleware} from "../../middlewares/authMiddleware";

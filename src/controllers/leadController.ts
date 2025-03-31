@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
-import { listLeads, createLead, updateLead, deleteLead } from '../services/leadService';
-import { successResponse, errorResponse } from '../utils/httpResponses';
-import { parseValidInt } from '../utils/parseValidInt';
-import { CreateLeadDTO } from '../types/dto/lead/CreateLeadDTO';
-import { UpdateLeadDTO } from '../types/dto/lead/UpdateLeadDTO';
-import { DeleteLeadDTO } from '../types/dto/lead/DeleteLeadDTO';
-import { ListLeadsDTO } from '../types/dto/lead/ListLeadsDTO';
+import {Request, Response} from 'express';
+import {createLead, deleteLead, listLeads, updateLead} from '../services/leadService';
+import {errorResponse, successResponse} from '../utils/httpResponses';
+import {parseValidInt} from '../utils/parseValidInt';
+import {CreateLeadDTO} from '../types/dto/lead/CreateLeadDTO';
+import {UpdateLeadDTO} from '../types/dto/lead/UpdateLeadDTO';
+import {DeleteLeadDTO} from '../types/dto/lead/DeleteLeadDTO';
+import {ListLeadsDTO} from '../types/dto/lead/ListLeadsDTO';
 
 export const listLeadsController = async (req: Request, res: Response) => {
     /*

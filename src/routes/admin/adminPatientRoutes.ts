@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { tenantMiddleware } from '../../middlewares/tenantMiddleware';
+import {Router} from 'express';
+import {tenantMiddleware} from '../../middlewares/tenantMiddleware';
 import {deletePatient, listPatients, updatePatient} from "../../controllers/patientController";
 import {authMiddleware} from "../../middlewares/authMiddleware";
 import {isAdminMiddleware} from "../../middlewares/isAdminMiddleware";

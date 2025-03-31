@@ -1,8 +1,9 @@
-import { Request, Response } from 'express';
-import { createExam, getExams, updateExam, deleteExam } from '../services/tenantExamService';
-import { successResponse, errorResponse } from '../utils/httpResponses';
-import { CreateExamDTO } from '../types/dto/tenantExam/createExamDTO';
-import { UpdateExamDTO } from '../types/dto/tenantExam/updateExamDTO';
+import {Request, Response} from 'express';
+import {createExam, deleteExam, getExams, updateExam} from '../services/tenantExamService';
+import {errorResponse, successResponse} from '../utils/httpResponses';
+import {CreateExamDTO} from '../types/dto/tenantExam/createExamDTO';
+import {UpdateExamDTO} from '../types/dto/tenantExam/updateExamDTO';
+
 export const createExamController = async (req: Request, res: Response) => {
     /*
     #swagger.tags = ['Admin/TenantExam']

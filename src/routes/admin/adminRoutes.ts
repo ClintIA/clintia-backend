@@ -1,9 +1,10 @@
-import { Router } from 'express';
-import { isAdminMiddleware } from '../../middlewares/isAdminMiddleware';
+import {Router} from 'express';
+import {isAdminMiddleware} from '../../middlewares/isAdminMiddleware';
 import {
     deleteAdminController,
     getAdminListController,
-    getAdminsByCPFController, getAdminsByIDController,
+    getAdminsByCPFController,
+    getAdminsByIDController,
     getAdminsByNameController,
     updateAdminController
 } from "../../controllers/adminController";

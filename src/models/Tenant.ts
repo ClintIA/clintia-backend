@@ -1,8 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, CreateDateColumn, ManyToMany, JoinTable, Index } from 'typeorm';
-import { Patient } from './Patient';
-import { Admin } from './Admin';
-import { Product } from './Product';
-import { TenantExams } from './TenantExams';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Index,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from 'typeorm';
+import {Patient} from './Patient';
+import {Admin} from './Admin';
+import {Product} from './Product';
+import {TenantExams} from './TenantExams';
 import {Doctor} from "./Doctor";
 import {Marketing} from "./Marketing";
 

@@ -1,13 +1,14 @@
-import { Request, Response } from 'express';
-import { successResponse, errorResponse } from '../utils/httpResponses';
+import {Request, Response} from 'express';
+import {errorResponse, successResponse} from '../utils/httpResponses';
 import {
     deletePatientService,
-    findPatientByCpf, findPatientByPhoneService,
+    findPatientByCpf,
+    findPatientByPhoneService,
     listPatientByTenant,
     updatePatientService
 } from "../services/patientService";
-import { PatientFiltersDTO } from '../types/dto/patient/patientFiltersDTO';
-import { UpdatePatientDTO } from '../types/dto/patient/updatePatientDTO';
+import {PatientFiltersDTO} from '../types/dto/patient/patientFiltersDTO';
+import {UpdatePatientDTO} from '../types/dto/patient/updatePatientDTO';
 
 export const listPatients = async (req: Request, res: Response) => {
     /*

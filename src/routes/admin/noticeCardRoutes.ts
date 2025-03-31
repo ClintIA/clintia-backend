@@ -1,4 +1,4 @@
-import { Router } from "express";
+import {Router} from "express";
 import {isAdminMiddleware} from "../../middlewares/isAdminMiddleware";
 import {tenantMiddleware} from "../../middlewares/tenantMiddleware";
 import {authMiddleware} from "../../middlewares/authMiddleware";

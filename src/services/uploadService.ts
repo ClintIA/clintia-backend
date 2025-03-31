@@ -1,5 +1,5 @@
-import { patientRepository } from '../repositories/patientRepository';
-import { findPatientByCpf } from './patientService';
+import {patientRepository} from '../repositories/patientRepository';
+import {findPatientByCpf} from './patientService';
 
 export const saveFileLinkToPatient = async (patientCpf: string, fileUrl: string) => {
     console.log("Salvando link do arquivo no banco de dados...");
