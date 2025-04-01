@@ -174,6 +174,12 @@ export const countInvoicingService = async (filters: MarketingFilters) => {
             .andWhere("exam.exam_type = :examType", { examType: filters.examType });
     }
 
+    if(filters.month) {
+        queryBuilder.andWhere("EXTRACT(MONTH FROM patientExam.createdAt) = :month", { month: filters.month });
+    }
+    if(filters.year) {
+        queryBuilder.andWhere("EXTRACT(YEAR FROM patientExam.createdAt) = :year", { year: filters.year });
+    }
     if (filters.attended !== undefined) {
         queryBuilder.andWhere("patientExam.attended = :attended", { attended: filters.attended });
     }
@@ -207,6 +213,9 @@ export const countPatientByMonthService = async (filters: MarketingFilters) => {
     if (filters.patientID) {
         queryBuilder.andWhere("patient.id = :patientId", { patientId: filters.patientID });
     }
+    if(filters.month) {
+        queryBuilder.andWhere("EXTRACT(MONTH FROM patient.created_at) = :month", { month: filters.month });
+    }
 
     if (filters.gender) {
         queryBuilder.andWhere("patient.gender = :gender", { gender: filters.gender });
@@ -215,7 +224,9 @@ export const countPatientByMonthService = async (filters: MarketingFilters) => {
     if (filters.canal) {
         queryBuilder.andWhere("patient.canal = :canal", { canal: filters.canal });
     }
-
+    if(filters.year) {
+        queryBuilder.andWhere("EXTRACT(YEAR FROM patient.created_at) = :year", { year: filters.year });
+    }
     const totalExamType = await queryBuilder.getCount();
 
     return { total: totalExamType };
@@ -259,8 +270,6 @@ async function getExamsByMonth(month: number, tenantId: number) {
         .leftJoinAndSelect('patientExams.tenant', 'tenant')
         .where('EXTRACT(MONTH FROM patientExams.createdAt) = :month', { month })
         .andWhere('patientExams.delete_at IS NULL');
-
-    // Adiciona filtro por tenant se fornecido
     if (tenantId) {
         queryBuilder.andWhere('tenant.id = :tenantId', { tenantId });
     }
@@ -304,10 +313,10 @@ export const listChannelByMonthService = async (filters: MarketingFilters) => {
     const chartChannelPatient: IChart[] = [];
     const chartChannelExamCompleted: IChart[] = [];
     for(const channel of listChannel) {
-        const buildList = await countPatientByMonthService({
+        const buildList = await countPatientByMonthService({...filters,
             canal: channel.id.toString()
         })
-        const countChannel = await countInvoicingService({
+        const countChannel = await countInvoicingService({ ...filters,
             channel: channel.id.toString(),
             status: filters.status
         })

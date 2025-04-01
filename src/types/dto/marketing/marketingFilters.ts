@@ -12,5 +12,7 @@ export interface MarketingFilters {
     canal?: string
     gender?: string
     doctorID?: number
+    month?: string
+    year?: string
 }
 
