@@ -438,7 +438,7 @@ export const calculateMarketingMetrics = async (tenantId: number, month: string)
     const appointmentRate = totalAppointments / totalLeads || 0; // Taxa de Aproveitamento
     const noShowRate = 1 - ((totalCompleted / totalAppointments) || 0); // Taxa de Absenteísmo
     const conversionRate = totalCompleted / totalLeads || 0; // Taxa de Conversão Final
-    const roasPercentage = (ROAS - 1) * 100; // Taxa de ROAS
+    const roasPercentage = (ROAS) * 100; // Taxa de ROAS
 
     return {
         CPL,
