@@ -135,8 +135,13 @@ export const deletePatientExam = async ({ examId, tenantId }: DeletePatientExamD
 };
 
 export const updateExamAttendance = async (examId: UpdateExamAttendanceDTO['examId'], attended: UpdateExamAttendanceDTO['attended']) => {
-
-    const updateResult = await patientExamsRepository.update({ id: examId }, { attended });
+    let status;
+    if(attended == "Yes") {
+        status = "Completed"
+    } else {
+        status = "Scheduled"
+    }
+    const updateResult = await patientExamsRepository.update({ id: examId }, { attended: attended, status: status });
 
     if (!updateResult.affected) {
         throw new Error('Exame não encontrado ou não atualizado');
