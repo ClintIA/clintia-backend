@@ -21,14 +21,17 @@ export const findDoctorsByEmail = async (email: string) => {
     return await doctorRepository.findOne({where: {email: email}, relations: ['tenants']});
 }
 export const registerDoctor = async (doctorData: RegisterDoctorDTO, tenantId: number) => {
-    const hashedPassword = await bcrypt.hash(doctorData.password!, 10);
+
     const tenant = await tenantRepository.findOne({ where: { id: tenantId } });
 
     if(!tenant){
         throw new Error('Tenant not found!');
     }
 
-    const existingDoctor = await doctorRepository.findOne({ where: { email: doctorData.email }, relations: ['tenants'] });
+    const existingDoctor =
+        await doctorRepository.findOne({ where: { cpf: doctorData.cpf }, relations: ['tenants'] }) ||
+        await doctorRepository.findOne({where: { CRM: doctorData.CRM }, relations: ['tenants'] }) ||
+        await doctorRepository.findOne({where: { email: doctorData.email }, relations: ['tenants'] })
 
     if (existingDoctor) {
         if (!existingDoctor.tenants.find(t => t.id === tenant.id)) {
@@ -38,7 +41,7 @@ export const registerDoctor = async (doctorData: RegisterDoctorDTO, tenantId: nu
 
         return { data: existingDoctor, message: 'Doutor já registrado, associado ao novo tenant.' };
     }
-
+    const hashedPassword = await bcrypt.hash(doctorData.password!, 10);
     const newDoctor = doctorRepository.create({
         ...doctorData,
         password: hashedPassword,
