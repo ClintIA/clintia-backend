@@ -415,6 +415,9 @@ export const calculateMarketingMetrics = async (tenantId: number, month: string)
     let totalInProgress: number = 0;
     let totalSchedulled: number = 0;
     let totalRevenue: number = 0;
+    let ROAS: number = 0;
+    let LTV: number = 0;
+    let roasPercentage: number = 0
 
     examsData.forEach((exam: PatientExams) => {
         if (exam.status === 'Completed') {
@@ -425,20 +428,21 @@ export const calculateMarketingMetrics = async (tenantId: number, month: string)
         if (exam.status === "InProgress") totalInProgress++;
     });
     let totalAppointments = totalCompleted + totalInProgress + totalSchedulled;
-
+    if(totalRevenue !== 0) {
+        ROAS = totalRevenue / totalCost || 0; // Retorno sobre o Investimento
+        LTV = totalRevenue / totalLeads || 0; // Lifetime Value
+        roasPercentage = (ROAS) * 100; // Taxa de ROAS
+    }
     // Cálculos
     const CPL = totalCost / totalLeads || 0; // Custo por Lead
     const CAP = totalCost / totalAppointments || 0; // Custo por Agendamento
-    const ROAS = totalRevenue / totalCost || 0; // Retorno sobre o Investimento
     const averageTicket = totalRevenue / totalCompleted || 0; // Ticket Médio
-    const LTV = totalRevenue / totalLeads || 0; // Lifetime Value
     const CPC = totalCost / totalClicks || 0; // Custo por Clique
 
     // Taxas
     const appointmentRate = totalAppointments / totalLeads || 0; // Taxa de Aproveitamento
     const noShowRate = 1 - ((totalCompleted / totalAppointments) || 0); // Taxa de Absenteísmo
     const conversionRate = totalCompleted / totalLeads || 0; // Taxa de Conversão Final
-    const roasPercentage = (ROAS) * 100; // Taxa de ROAS
 
     return {
         CPL,
